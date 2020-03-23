@@ -64,7 +64,7 @@ void k2000()
 	switchRigth();
 	switchLeft();
 }
-/*Cette fonction appelle switchRigth() et switchLeft() pour compléter le k200.*/
+
 void fillRight()
 {
 	for(int i=7;i>=0;i--)
