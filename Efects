@@ -1,0 +1,166 @@
+/* USER CODE BEGIN 0 */
+void writeLed(int led, int state)
+{
+	switch(led)
+
+		{
+			case 0:HAL_GPIO_WritePin(LD0_GPIO_Port, LD0_Pin,state);
+				   break;
+			case 1:HAL_GPIO_WritePin(LD1_GPIO_Port, LD1_Pin,state);
+				   break;
+			case 2:HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin,state);
+				   break;
+			case 3:HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin,state);
+				   break;
+			case 4:HAL_GPIO_WritePin(LD4_GPIO_Port, LD4_Pin,state);
+				   break;
+			case 5:HAL_GPIO_WritePin(LD5_GPIO_Port, LD5_Pin,state);
+				   break;
+			case 6:HAL_GPIO_WritePin(LD6_GPIO_Port, LD6_Pin,state);
+				   break;
+			case 7:HAL_GPIO_WritePin(LD7_GPIO_Port, LD7_Pin,state);
+				   break;
+			default: break;
+
+
+		}
+
+}
+void switchLeft()
+
+	{
+	 	  for (int i=0; i<8;i++)
+	 		  {
+	 		  	  writeLed(i,1);
+	 		  	  HAL_Delay(50);
+	 		  }
+	 	  for (int i=0; i<8;i++)
+	 	 	  {
+	 	 	 	  writeLed(i,0);
+	 	 	 	  HAL_Delay(50);
+	 	 	  }
+
+
+	}
+
+void switchRigth()
+{
+			for (int i=7; i>=0;i--)
+		 		  {
+		 		  	  writeLed(i,1);
+		 		  	  HAL_Delay(50);
+		 		  }
+			for (int i=7; i>=0;i--)
+		 	 	  {
+		 	 	 	  writeLed(i,0);
+		 	 	 	  HAL_Delay(50);
+		 	 	  }
+
+}
+
+void k2000()
+
+{
+	switchRigth();
+	switchLeft();
+}
+/*Cette fonction appelle switchRigth() et switchLeft() pour compléter le k200.*/
+void fillRight()
+{
+	for(int i=7;i>=0;i--)
+	{
+		for(int j=0;j<i;j++)
+		{
+			writeLed(j,1);
+			HAL_Delay(100);
+			writeLed(j,0);
+
+		}
+		writeLed(i,1);
+
+	}
+}
+void clearRight()
+{
+
+	for(int i=0;i<=7;i++)
+		for(int j=i;j>=0;j--)
+			{
+				writeLed(j,1);
+				HAL_Delay(100);
+				writeLed(j,0);
+
+			}
+
+
+}
+void fillLeft()
+{
+	for(int i=0;i<=7;i++)
+	{
+		for(int j=7;j>=i;j--)
+		{
+			writeLed(j,1);
+			HAL_Delay(100);
+			writeLed(j,0);
+
+		}
+		writeLed(i,1);
+
+	}
+}
+void clearLeft()
+
+{
+
+	for(int i=7;i>=0;i--)
+		for(int j=i;j<=7;j++)
+			{
+				writeLed(j,1);
+				HAL_Delay(100);
+				writeLed(j,0);
+
+			}
+
+
+}
+void ledOn()
+{
+	writeLed(4,1);
+}
+void ledOff()
+
+{
+	writeLed(4,0);
+}
+void flashLight()
+{
+	for (int i=0; i<8;i++)
+		    writeLed(i,1);
+	HAL_Delay(500);
+	for (int i=0; i<8;i++)
+			writeLed(i,0);
+	HAL_Delay(500);
+}
+int _write(int file, char *ptr, int len)
+{
+
+  int DataIdx;
+
+
+
+  for (DataIdx = 0; DataIdx < len; DataIdx++)
+
+  {
+
+    //__io_putchar(*ptr++);
+
+          ITM_SendChar(*ptr++);
+
+  }
+
+  return len;
+
+}
+
+/* USER CODE END 0 */
